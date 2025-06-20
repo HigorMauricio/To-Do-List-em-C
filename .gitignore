@@ -1,0 +1,12 @@
+# Arquivos objeto
+*.o
+
+# Executáveis (Windows e Linux)
+gerenciador_tarefas
+gerenciador_tarefas.exe
+
+build/
+bin/
+
+# Arquivos temporários do VSCode
+.vscode/
