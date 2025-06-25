@@ -1,7 +1,7 @@
 #ifndef TAREFAS_H
 #define TAREFAS_H
 #define MAX_CARACTER 100
-#define CHAVE 100
+#define CHAVE 0xAB
 
 typedef struct Tarefa {
     char descricao[MAX_CARACTER];
