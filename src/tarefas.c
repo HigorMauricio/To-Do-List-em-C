@@ -14,7 +14,7 @@ Tarefa* criar_tarefa(){
 
     printf("Digite a descricao da tarefa: ");
     tarefa -> concluida = 0;
-    fgets(tarefa -> descricao, 100, stdin);
+    fgets(tarefa -> descricao, MAX_CARACTER, stdin);
 
     return tarefa;
 }
@@ -46,7 +46,7 @@ void visualizar_lista(No* lista){
 
     No* temporario = lista;
     printf("\n--- Sua Lista de Tarefas ---\n");
-    int contador = 0;
+    int contador = 1;
     while(temporario != NULL){
         Tarefa tarefa = temporario -> tarefa;
         printf("\nTAREFA-%d\n", contador);
@@ -106,6 +106,7 @@ void inserir_tarefa_posicao(No** lista){
     scanf("%d", &posicao);
     getchar(); //remoção do \n no buffer
 
+    posicao --;
     if(posicao == 0 || *lista == NULL){
         inserir_tarefa_inicio(lista);
     } else {
@@ -178,6 +179,7 @@ void remover_tarefa_posicao(No** lista){
     printf("Informe a posicao: ");
     scanf("%d", &posicao);
     getchar(); //remoção do \n no buffer
+    posicao --;
 
     No* temporario = *lista;
 
@@ -210,6 +212,7 @@ void marcar_concluido(No** lista){
     printf("Informe a tarefa: ");
     scanf("%d", &opcao);
     getchar();
+    opcao --;
 
     No* temporario = *lista;
     for(int i=0; i<opcao && temporario != NULL; i++){
@@ -232,7 +235,7 @@ void marcar_concluido(No** lista){
 
 void desmarcar_concluido(No** lista){
     if(*lista == NULL){
-        printf("Lista Vazia!zn");
+        printf("Lista Vazia!\n");
         return;
     }
 
@@ -240,6 +243,7 @@ void desmarcar_concluido(No** lista){
     printf("Informe a tarefa: ");
     scanf("%d", &opcao);
     getchar();
+    opcao --;
 
     No* temporario = *lista;
     for(int i=0; i<opcao && temporario != NULL; i++){
@@ -266,4 +270,59 @@ void apagar_lista(No** lista){
         *lista = (*lista) -> proximo;
         free(temporario);
     }
+}
+
+void salvar_lista(No* lista){
+    FILE *arquivo = fopen("lista.txt", "w");
+    if(arquivo == NULL) {
+        printf("Erro ao salvar lista\n");
+        return;
+    }
+
+    No* temporario = lista;
+    while(temporario != NULL){
+        fprintf(arquivo, "%d %s", (temporario -> tarefa).concluida, (temporario -> tarefa).descricao);
+        temporario = temporario -> proximo;
+    }
+    fclose(arquivo);
+    printf("Lista salva com sucesso\n");
+}
+
+void adicionar_tarefa_carregada(No** lista, Tarefa tarefa){
+    No* novo_no = criar_no();
+
+    novo_no->tarefa = tarefa;
+    novo_no->proximo = NULL;
+
+    if(*lista == NULL){
+        *lista = novo_no;
+    }
+    else{
+        No* temporario = *lista;
+        while(temporario -> proximo != NULL){
+            temporario = temporario -> proximo;
+        }
+
+        temporario -> proximo = novo_no;
+    }
+}
+
+void carregar_lista(No** lista){
+    FILE *arquivo = fopen("lista.txt", "r");
+
+    //caso da lista vazia
+    if(arquivo == NULL){
+        printf("Nenhuma lista encontrar, iniciando uma nova lista\n");
+        return;
+    }
+    Tarefa tarefa;
+    while(fscanf(arquivo, "%d ", &(tarefa.concluida)) == 1){
+        
+        if(fgets(tarefa.descricao, MAX_CARACTER, arquivo) == NULL){
+            break;
+        }
+
+        adicionar_tarefa_carregada(lista, tarefa);
+    }
+    
 }

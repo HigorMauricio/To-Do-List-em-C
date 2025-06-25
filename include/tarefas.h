@@ -40,4 +40,13 @@ void desmarcar_concluido(No** lista);
 
 //apagar llista
 void apagar_lista(No** lista);
+
+//salvar lista
+void salvar_lista(No* lista);
+
+//carregar lista
+void carregar_lista(No** lista);
+
+//adicionar tarefa carregada
+void adicionar_tarefa_carregada(No** lista, Tarefa tarefa);
 #endif

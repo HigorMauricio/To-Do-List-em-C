@@ -17,7 +17,10 @@ void exibir_menu(){
 int main(){
     //criação da lista-to-do
     No* lista_to_do = criar_lista();
+
     int opcao;
+
+    carregar_lista(&lista_to_do);
 
     do{
         exibir_menu();
@@ -25,6 +28,10 @@ int main(){
         getchar(); //limpar o buffer do teclado 
 
         switch(opcao){
+            //caso de saída
+            case 0:{
+                break;
+            }
             case 1: {
                 int escolha;
                 printf("\n");
@@ -95,6 +102,7 @@ int main(){
         }
     }while(opcao != 0);
 
+    salvar_lista(lista_to_do);
     apagar_lista(&lista_to_do);
 
     return 0;
