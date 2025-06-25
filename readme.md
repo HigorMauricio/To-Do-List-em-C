@@ -73,7 +73,7 @@ O programa apresenta um menu interativo para gerenciar suas tarefas. Basta segui
 
 ### Visualização do arquivo lista.txt
 
-![Image](imagens/lista.png)
+![Image](imagens/lista_txt.png)
 
 ## Contribuição
 
