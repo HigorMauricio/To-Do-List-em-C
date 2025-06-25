@@ -2,6 +2,8 @@
 
 Este projeto é um gerenciador de tarefas (To-Do List) feito em linguagem C, utilizando lista ligada para armazenar as tarefas dinamicamente.
 
+É utilizado um arquivo `.txt` para o salvamento da lista.
+
 ## Funcionalidades
 
 - Adicionar tarefa ao final, início ou em uma posição específica
@@ -9,7 +11,16 @@ Este projeto é um gerenciador de tarefas (To-Do List) feito em linguagem C, uti
 - Visualizar todas as tarefas e seus status (concluída ou pendente)
 - Marcar e desmarcar tarefas como concluídas
 - Liberação automática de memória ao sair
+- Salvamento automático das tarefas em arquivo `.txt` e carregamento ao iniciar o programa
 
+## Salvamento e Carregamento Automático
+
+Todas as tarefas são salvas automaticamente no arquivo `lista.txt` ao sair do programa.  
+Quando você executa o gerenciador novamente, suas tarefas são carregadas desse arquivo, permitindo continuar de onde parou.
+
+- O arquivo `lista.txt` é criado na mesma pasta do executável.
+- Cada linha do arquivo representa uma tarefa, indicando se está concluída ou não e sua descrição.
+  
 ## Estrutura do Projeto
 
 ```
@@ -20,6 +31,7 @@ Este projeto é um gerenciador de tarefas (To-Do List) feito em linguagem C, uti
 │   ├── main.c
 │   └── tarefas.c
 ├── Makefile
+├── lista.txt
 ```
 
 ## Como compilar
@@ -55,7 +67,11 @@ O programa apresenta um menu interativo para gerenciar suas tarefas. Basta segui
 ### Menu principal
 ![Image](imagens/tela_inicio.png)
 
-### Visualização da lista após modificaçõs
+### Visualização da lista após modificações
+
+![Image](imagens/lista.png)
+
+### Visualização do arquivo lista.txt
 
 ![Image](imagens/lista.png)
 
