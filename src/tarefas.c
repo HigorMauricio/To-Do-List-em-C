@@ -273,15 +273,21 @@ void apagar_lista(No** lista){
 }
 
 void salvar_lista(No* lista){
-    FILE *arquivo = fopen("lista.txt", "w");
+    FILE *arquivo = fopen("lista.dat", "wb");
     if(arquivo == NULL) {
         printf("Erro ao salvar lista\n");
         return;
     }
 
+    const char chave = CHAVE;
+
     No* temporario = lista;
+    // passando por cada tarefa criptografando e a adicionando no arquivo .dat
     while(temporario != NULL){
-        fprintf(arquivo, "%d %s", (temporario -> tarefa).concluida, (temporario -> tarefa).descricao);
+        Tarefa tarefa = temporario -> tarefa;
+        criptografar(&tarefa, sizeof(Tarefa), chave);
+
+        fwrite(&tarefa, sizeof(Tarefa), 1, arquivo);
         temporario = temporario -> proximo;
     }
     fclose(arquivo);
@@ -308,21 +314,30 @@ void adicionar_tarefa_carregada(No** lista, Tarefa tarefa){
 }
 
 void carregar_lista(No** lista){
-    FILE *arquivo = fopen("lista.txt", "r");
+    FILE *arquivo = fopen("lista.dat", "rb");
 
     //caso da lista vazia
     if(arquivo == NULL){
         printf("Nenhuma lista encontrar, iniciando uma nova lista\n");
         return;
     }
+    const char chave = CHAVE;
     Tarefa tarefa;
-    while(fscanf(arquivo, "%d ", &(tarefa.concluida)) == 1){
-        
-        if(fgets(tarefa.descricao, MAX_CARACTER, arquivo) == NULL){
-            break;
-        }
 
+    //loop por cada tarefa presente no arquivo .dat, descipotogrando e adicicionando a lista
+    while(fread(&tarefa, sizeof(Tarefa), 1, arquivo) == 1){
+        criptografar(&tarefa, sizeof(Tarefa), chave);
         adicionar_tarefa_carregada(lista, tarefa);
     }
-    
+
+    fclose(arquivo);
+}
+
+void criptografar(void *tarefa, size_t tamanho, char chave){
+
+    char *ponteiro_byte = (char*)tarefa;
+
+    for(size_t i = 0; i < tamanho; i++){
+        ponteiro_byte[i] = ponteiro_byte[i] ^ chave;
+    }
 }

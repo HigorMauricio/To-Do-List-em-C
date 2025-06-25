@@ -2,7 +2,7 @@
 
 Este projeto é um gerenciador de tarefas (To-Do List) feito em linguagem C, utilizando lista ligada para armazenar as tarefas dinamicamente.
 
-É utilizado um arquivo `.txt` para o salvamento da lista.
+É utilizado um arquivo `.dat` criptografado pelo método XOR para o salvamento da lista.
 
 ## Funcionalidades
 
@@ -11,15 +11,25 @@ Este projeto é um gerenciador de tarefas (To-Do List) feito em linguagem C, uti
 - Visualizar todas as tarefas e seus status (concluída ou pendente)
 - Marcar e desmarcar tarefas como concluídas
 - Liberação automática de memória ao sair
-- Salvamento automático das tarefas em arquivo `.txt` e carregamento ao iniciar o programa
+- Criptografia das tarefas na lista para o seu salvamento e descriptografia para o carregamento de dados
+- Salvamento, de forma binária, automática das tarefas em arquivo `.dat` e carregamento ao iniciar o programa
+
+## Tecnologias Utilizadas
+
+- **Linguagem:** C
+- **Estrutura de Dados:** Lista Ligada
+- **Conceitos:** Alocação Dinâmica de Memória, Ponteiros, Modularização de Código
+- **Criptografia:** Cifra XOR para embaralhamento de dados binários
+- **Automação de Build:** Makefile
+- **Compilador:** GCC (via MinGW no Windows)
 
 ## Salvamento e Carregamento Automático
 
-Todas as tarefas são salvas automaticamente no arquivo `lista.txt` ao sair do programa.  
-Quando você executa o gerenciador novamente, suas tarefas são carregadas desse arquivo, permitindo continuar de onde parou.
+Todas as tarefas são salvas de forma binária e criptografada automaticamente no arquivo `lista.dat` ao sair do programa.  
+Quando você executa o gerenciador novamente, suas tarefas são descriptografadas e carregadas desse arquivo, permitindo continuar de onde parou.
 
-- O arquivo `lista.txt` é criado na mesma pasta do executável.
-- Cada linha do arquivo representa uma tarefa, indicando se está concluída ou não e sua descrição.
+- O arquivo `lista.dat` é criado na mesma pasta do executável.
+- Os dados de cada tarefa são salvos como um bloco de bytes sequencial no arquivo, e não em formato de texto legível..
   
 ## Estrutura do Projeto
 
@@ -31,7 +41,6 @@ Quando você executa o gerenciador novamente, suas tarefas são carregadas desse
 │   ├── main.c
 │   └── tarefas.c
 ├── Makefile
-├── lista.txt
 ```
 
 ## Como compilar
@@ -62,7 +71,7 @@ No Linux:
 
 O programa apresenta um menu interativo para gerenciar suas tarefas. Basta seguir as instruções na tela para adicionar, remover, visualizar ou marcar tarefas.
 
-## Exeplos
+## Exemplos
 
 ### Menu principal
 ![Image](imagens/tela_inicio.png)
@@ -70,10 +79,6 @@ O programa apresenta um menu interativo para gerenciar suas tarefas. Basta segui
 ### Visualização da lista após modificações
 
 ![Image](imagens/lista.png)
-
-### Visualização do arquivo lista.txt
-
-![Image](imagens/lista_txt.png)
 
 ## Contribuição
 

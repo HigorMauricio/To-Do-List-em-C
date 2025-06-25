@@ -1,6 +1,7 @@
 #ifndef TAREFAS_H
 #define TAREFAS_H
 #define MAX_CARACTER 100
+#define CHAVE 100
 
 typedef struct Tarefa {
     char descricao[MAX_CARACTER];
@@ -49,4 +50,7 @@ void carregar_lista(No** lista);
 
 //adicionar tarefa carregada
 void adicionar_tarefa_carregada(No** lista, Tarefa tarefa);
+
+//criptografar as tarefas antes de salvar
+void criptografar(void *tarefa, size_t tamanho, char chave);
 #endif
