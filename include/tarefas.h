@@ -53,4 +53,5 @@ void adicionar_tarefa_carregada(No** lista, Tarefa tarefa);
 
 //criptografar as tarefas antes de salvar
 void criptografar(void *tarefa, size_t tamanho, char chave);
+
 #endif
